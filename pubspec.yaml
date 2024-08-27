@@ -1,0 +1,23 @@
+name: joistic
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  get: ^4.6.6
+  dio: ^5.6.0
+  cloud_firestore: ^5.2.1
+  firebase_core: ^3.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
