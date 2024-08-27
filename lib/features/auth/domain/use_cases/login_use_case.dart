@@ -1,4 +1,4 @@
-import 'package:joistic/features/auth/data/model/auth_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:joistic/features/auth/data/repository/auth_repo.dart';
 
 class LoginUseCase {
@@ -6,7 +6,7 @@ class LoginUseCase {
 
   LoginUseCase({required this.authRepository});
 
-  Future<User?> execute(String username, String password) async {
-    return await authRepository.login(username, password);
+  Future<User?> execute(String username, String password, bool loginWithGoogle) async {
+    return loginWithGoogle ? await authRepository.loginWithGoogle() : await authRepository.loginWithEmail(username, password);
   }
 }

@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: InitialBinding(),
-      home: const Scaffold(
+      home: Scaffold(
         body: Center(
           child: Text('Hello World!'),
         ),

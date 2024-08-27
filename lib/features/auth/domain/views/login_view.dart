@@ -10,11 +10,22 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Login')),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            loginController.login('username', 'password');
-          },
-          child: Text('Login'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                loginController.login('ruvser03@gmail.com', 'password123');
+              },
+              child: Text('Login'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                loginController.login('', '', loginWithGoogle: true);
+              },
+              child: Text('Login'),
+            ),
+          ],
         ),
       ),
     );

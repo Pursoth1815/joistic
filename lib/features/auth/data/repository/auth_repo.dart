@@ -1,16 +1,16 @@
-import 'package:joistic/core/network/api_client.dart';
-import 'package:joistic/features/auth/data/model/auth_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:joistic/features/auth/data/repository/firebase_auth_service.dart';
 
 class AuthRepository {
-  final ApiClient apiClient;
+  final FirebaseAuthService firebaseAuthService;
 
-  AuthRepository({required this.apiClient});
+  AuthRepository({required this.firebaseAuthService});
 
-  Future<User?> login(String username, String password) async {
-    final response = await apiClient.get();
-    if (response.statusCode == 200) {
-      return User.fromJson(response.data);
-    }
-    return null;
+  Future<User?> loginWithEmail(String email, String password) async {
+    return await firebaseAuthService.signInWithEmail(email, password);
+  }
+
+  Future<User?> loginWithGoogle() async {
+    return await firebaseAuthService.signInWithGoogle();
   }
 }
