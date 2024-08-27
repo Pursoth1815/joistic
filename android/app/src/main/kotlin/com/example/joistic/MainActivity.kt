@@ -1,4 +1,4 @@
-package com.example.joistic
+package com.application.joistic
 
 import io.flutter.embedding.android.FlutterActivity
 
