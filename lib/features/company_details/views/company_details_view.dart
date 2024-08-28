@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:joistic/core/constants/app_colors.dart';
 import 'package:joistic/core/constants/app_constants.dart';
+import 'package:joistic/core/widgets/card_widget.dart';
 import 'package:joistic/core/widgets/shimmer.dart';
 import 'package:joistic/core/widgets/shimmer_card.dart';
 import 'package:joistic/features/company_details/domain/controllers/company_details_controller.dart';
@@ -24,20 +25,32 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
                       : Container(
                           child: ListView.separated(
                               shrinkWrap: true,
-                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
                               itemBuilder: (context, index) {
                                 final company = controller.state?[index];
-                                return Container(
-                                  width: Get.width * 0.7,
-                                  height: Get.width * 0.2,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.white),
-                                  child: Text(company!.title),
+                                return CustomCard(
+                                  height: Get.width * 0.25,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: Get.width * 0.20,
+                                        margin: EdgeInsets.only(right: 15),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                  company!.logo,
+                                                ),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               },
                               separatorBuilder: (context, index) => SizedBox(
-                                    height: 15,
+                                    height: Get.height * 0.05,
                                   ),
-                              itemCount: controller.state!.length)),
+                              itemCount: /* controller.state!.length */ 6)),
             ),
           ),
         ),
