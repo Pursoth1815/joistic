@@ -5,4 +5,8 @@ class AppStrings {
   static final String email_invalid = "Email Address is Invalid!.";
   static final String invalid_credential = "Invalid Credentials !";
   static final String error = "Something went wrong!.";
+
+  //Image File Path's
+  static final String error_image = "assets/images/error.jpg";
+  static final String no_internet_image = "assets/images/no_internet.png";
 }

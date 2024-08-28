@@ -11,9 +11,10 @@ class InitialBinding extends Bindings {
   @override
   Future<void> dependencies() async {
     final sharedPreferencesService = SharedPreferencesService();
-    await sharedPreferencesService.init();
+    sharedPreferencesService.init().then((_) {
+      Get.put<SharedPreferencesService>(sharedPreferencesService, permanent: true);
+    });
 
-    Get.put<SharedPreferencesService>(sharedPreferencesService, permanent: true);
     Get.lazyPut<ApiClient>(() => ApiClient(baseUrl: 'https://jsonplaceholder.typicode.com/albums/1/photos'), fenix: true);
 
     Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthService());
