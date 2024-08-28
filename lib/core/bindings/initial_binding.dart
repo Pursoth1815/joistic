@@ -9,8 +9,11 @@ import 'package:joistic/features/auth/domain/use_cases/login_use_case.dart';
 
 class InitialBinding extends Bindings {
   @override
-  void dependencies() {
-    Get.lazyPut<SharedPreferencesService>(() => SharedPreferencesService(), fenix: true);
+  Future<void> dependencies() async {
+    final sharedPreferencesService = SharedPreferencesService();
+    await sharedPreferencesService.init();
+
+    Get.put<SharedPreferencesService>(sharedPreferencesService, permanent: true);
     Get.lazyPut<ApiClient>(() => ApiClient(baseUrl: 'https://jsonplaceholder.typicode.com/albums/1/photos'), fenix: true);
 
     Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthService());

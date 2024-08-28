@@ -19,7 +19,7 @@ class LoginController extends GetxController {
       log('user.value: ${loggedInUser}');
 
       if (loggedInUser != null) {
-        await sharedPreferencesService.setString('user_token', loggedInUser.uid);
+        await sharedPreferencesService.setUserToken(loggedInUser.uid);
         Get.offNamed(Routes.COMPANY_DETAILS);
       }
     } catch (e) {

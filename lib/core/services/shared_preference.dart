@@ -1,18 +1,36 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
+  static final SharedPreferencesService _instance = SharedPreferencesService._internal();
+  late SharedPreferences _prefs;
+
+  SharedPreferencesService._internal();
+
+  factory SharedPreferencesService() {
+    return _instance;
+  }
+
+  Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
   Future<void> setString(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(key, value);
+    await _prefs.setString(key, value);
   }
 
   Future<String?> getString(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
+    return _prefs.getString(key);
+  }
+
+  Future<void> setUserToken(String token) async {
+    await _prefs.setString('user_token', token);
+  }
+
+  String? getUserToken() {
+    return _prefs.getString('user_token');
   }
 
   Future<void> clearAll() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    await _prefs.clear();
   }
 }
