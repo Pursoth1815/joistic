@@ -17,6 +17,7 @@ dependencies:
   firebase_auth: ^5.2.0
   google_sign_in: ^6.2.1
   shared_preferences: ^2.3.2
+  cached_network_image: ^3.4.0
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +27,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Bold.TTF
+        - asset: fonts/Roboto-Light.TTF
+        - asset: fonts/Roboto-Medium.TTF
+        - asset: fonts/Roboto-Regular.TTF
+        - asset: fonts/Roboto-Black.TTF

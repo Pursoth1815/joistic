@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:joistic/core/bindings/initial_binding.dart';
 import 'package:joistic/core/constants/app_constants.dart';
 import 'package:joistic/core/services/shared_preference.dart';
@@ -42,6 +41,7 @@ class MainApp extends StatelessWidget {
       initialRoute: Routes.LOGIN,
       theme: ThemeData(
         useMaterial3: false,
+        fontFamily: 'Roboto',
       ),
       getPages: AppRoutes.routes,
       builder: (context, child) => MediaQuery(

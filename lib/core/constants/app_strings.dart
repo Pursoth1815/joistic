@@ -1,5 +1,6 @@
 class AppStrings {
   static final String appName = "Joistics";
+  static final String titleText = "Find your Dream\nJob today";
   static final String wrongPassword = "The password is wrong.";
   static final String user_not_found = "User Not Found!.";
   static final String email_invalid = "Email Address is Invalid!.";
@@ -9,4 +10,6 @@ class AppStrings {
   //Image File Path's
   static final String error_image = "assets/images/error.jpg";
   static final String no_internet_image = "assets/images/no_internet.png";
+  static final String menu_image = "assets/images/menu.png";
+  static final String search_image = "assets/images/search.png";
 }
