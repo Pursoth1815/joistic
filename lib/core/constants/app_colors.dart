@@ -15,5 +15,7 @@ class AppColors {
 
   static const Color green = Color(0xFF50C878);
 
+  static const Color purple = Color(0xFF645EFA);
+
   static const Color light_black = Colors.black38;
 }

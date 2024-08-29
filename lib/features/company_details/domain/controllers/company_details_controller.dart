@@ -9,6 +9,8 @@ class CompanyDetailsController extends GetxController with StateMixin<List<Compa
 
   CompanyDetailsController({required this.companyListUseCase});
 
+  // List<dynamic> companies
+
   @override
   void onInit() {
     super.onInit();
@@ -21,7 +23,6 @@ class CompanyDetailsController extends GetxController with StateMixin<List<Compa
       List<dynamic> companies = await companyListUseCase.execute();
 
       if (companies.isNotEmpty) {
-        log('companies: ${companies.length}');
         change(companies as List<CompanyListModel>, status: RxStatus.success());
       } else {
         change([], status: RxStatus.empty());
@@ -31,4 +32,6 @@ class CompanyDetailsController extends GetxController with StateMixin<List<Compa
       change([], status: RxStatus.error('Failed to load companies'));
     }
   }
+
+  Future<void> filterCompanyList(String value) async {}
 }
