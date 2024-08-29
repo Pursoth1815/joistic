@@ -13,6 +13,22 @@ class CompanyListModel {
     this.isApplied = false,
   });
 
+  CompanyListModel copyWith({
+    String? companyId,
+    String? title,
+    String? description,
+    String? logo,
+    bool? isApplied,
+  }) {
+    return CompanyListModel(
+      companyId: companyId ?? this.companyId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      logo: logo ?? this.logo,
+      isApplied: isApplied ?? this.isApplied,
+    );
+  }
+
   factory CompanyListModel.fromJson(Map<String, dynamic> json) {
     final titleText = json['title'].toString();
 

@@ -24,11 +24,7 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
         child: Shimmer(
           child: GetBuilder<CompanyDetailsController>(
             builder: (controller) => Container(
-              child: controller.status.isLoading
-                  ? _loaderWidget()
-                  : controller.status.isEmpty
-                      ? Center(child: Text('No companies available'))
-                      : _bodyWidget(controller),
+              child: controller.status.isLoading ? _loaderWidget() : _bodyWidget(controller),
             ),
           ),
         ),
@@ -42,7 +38,7 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
       child: Column(
         children: [
-          _navbarFunctionality(controller),
+          _navbarFunctionality(),
           Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.only(top: 15),
@@ -53,16 +49,36 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
             ),
           ),
           Expanded(
-            child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final company = controller.state?[index];
-                  return _companyListTile(context, company!);
-                },
-                separatorBuilder: (context, index) => SizedBox(
-                      height: Get.height * 0.04,
+            child: controller.state!.isEmpty
+                ? Container(
+                    width: Get.width,
+                    margin: EdgeInsets.only(bottom: 15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          AppStrings.no_data_image,
+                          width: Get.width * 0.75,
+                          height: Get.width * 0.75,
+                        ),
+                        CustomText(
+                          text: AppStrings.no_data,
+                          fontWeight: FontWeight.w500,
+                          size: 16,
+                        ),
+                      ],
                     ),
-                itemCount: controller.state!.length),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final company = controller.state?[index];
+                      return _companyListTile(context, company!);
+                    },
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: Get.height * 0.04,
+                        ),
+                    itemCount: controller.state!.length),
           ),
         ],
       ),
@@ -85,8 +101,8 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
                 imageUrl: company.logo,
                 placeholder: (context, url) => Center(
                   child: SizedBox(
-                    width: 30,
-                    height: 30,
+                    width: 15,
+                    height: 15,
                     child: CircularProgressIndicator(),
                   ),
                 ),
@@ -122,7 +138,7 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
                 color: Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: AppColors.purple.withOpacity(0.8),
+                  color: company.isApplied ? AppColors.green : AppColors.purple.withOpacity(0.8),
                   width: 8.0,
                 ),
               ),
@@ -133,7 +149,7 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
     );
   }
 
-  Container _navbarFunctionality(CompanyDetailsController controller) {
+  Container _navbarFunctionality() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 15),
       child: Row(
@@ -144,7 +160,10 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
             width: 30,
             height: 50,
           ),
-          AnimatedSearchBox(/* onTextChanged: (p0) => controller.fil */)
+          AnimatedSearchBox(
+            onTextChanged: (value) => controller.filterCompanyList(value),
+            onTapClose: controller.removeFilter,
+          )
         ],
       ),
     );
@@ -211,8 +230,8 @@ class CompanyDetailsView extends GetView<CompanyDetailsController> {
                   borderRadius: 15,
                   letterSpacing: 3,
                   text: 'applay now'.toUpperCase(),
-                  onPressed: () {
-                    print('Button Pressed!');
+                  onPressed: () async {
+                    await controller.applyJob(model.companyId);
                   },
                 ),
               ],

@@ -4,8 +4,9 @@ import 'package:joistic/core/constants/app_strings.dart';
 
 class AnimatedSearchBox extends StatefulWidget {
   final Function(String)? onTextChanged;
+  final Function? onTapClose;
 
-  AnimatedSearchBox({Key? key, this.onTextChanged}) : super(key: key);
+  AnimatedSearchBox({Key? key, this.onTextChanged, this.onTapClose}) : super(key: key);
   @override
   _AnimatedSearchBoxState createState() => _AnimatedSearchBoxState();
 }
@@ -32,6 +33,9 @@ class _AnimatedSearchBoxState extends State<AnimatedSearchBox> with SingleTicker
     setState(() {
       if (_isExpanded) {
         _controller.reverse();
+        if (widget.onTapClose != null) {
+          widget.onTapClose!();
+        }
       } else {
         _controller.forward();
       }

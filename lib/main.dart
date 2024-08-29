@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:joistic/core/bindings/initial_binding.dart';
 import 'package:joistic/core/constants/app_constants.dart';
@@ -9,6 +10,10 @@ import 'package:joistic/routes/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   await _initializeApp();
   runApp(const MainApp());
 }
