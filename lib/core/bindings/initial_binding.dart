@@ -1,6 +1,7 @@
 // core/binding/initial_binding.dart
 import 'package:get/get.dart';
 import 'package:joistic/core/network/api_client.dart';
+import 'package:joistic/core/services/internet_connectivity_controller.dart';
 import 'package:joistic/core/services/shared_preference.dart';
 import 'package:joistic/features/auth/data/repository/auth_repo.dart';
 import 'package:joistic/features/auth/data/repository/firebase_auth_service.dart';
@@ -17,6 +18,7 @@ class InitialBinding extends Bindings {
 
     Get.lazyPut<ApiClient>(() => ApiClient(baseUrl: 'https://jsonplaceholder.typicode.com/albums/1/photos'), fenix: true);
 
+    Get.lazyPut<ConnectivityController>(() => ConnectivityController());
     Get.lazyPut<FirebaseAuthService>(() => FirebaseAuthService());
     Get.lazyPut<AuthRepository>(() => AuthRepository(firebaseAuthService: Get.find()));
     Get.lazyPut<LoginUseCase>(() => LoginUseCase(authRepository: Get.find()));

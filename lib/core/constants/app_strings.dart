@@ -8,11 +8,12 @@ class AppStrings {
   static final String error = "Something went wrong!.";
   static final String position = "Position";
   static final String no_data = "No Data Available!";
+  static const String no_internet = "No Internet Available!";
   static final String job_position = "Senior UI/UX Desiginer";
 
   //Image File Path's
   static final String error_image = "assets/images/error.jpg";
-  static final String no_internet_image = "assets/images/no_internet.png";
+  static const String no_internet_image = "assets/images/no_internet.png";
   static final String menu_image = "assets/images/menu.png";
   static final String search_image = "assets/images/search.png";
   static final String no_data_image = "assets/images/no_data.png";

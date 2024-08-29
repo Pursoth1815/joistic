@@ -1,39 +1,35 @@
 import 'dart:async';
+import 'dart:io';
 
-import 'package:get/get.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+class ConnectivityService {
+  final StreamController<bool> _connectivityController = StreamController<bool>.broadcast();
+  late Timer _timer;
 
-class ConnectivityService extends GetxService {
-  final RxBool isConnected = true.obs;
-  late StreamSubscription<InternetConnectionStatus> _subscription;
-
-  @override
-  void onInit() {
-    super.onInit();
-    _initializeConnectivity();
+  ConnectivityService() {
+    _startMonitoring();
   }
 
-  void _initializeConnectivity() {
-    _subscription = InternetConnectionChecker().onStatusChange.listen(_updateConnectionStatus);
-    _checkInitialConnection();
+  Stream<bool> get connectivityStream => _connectivityController.stream;
+
+  void _startMonitoring() {
+    _timer = Timer.periodic(Duration(seconds: 5), (_) => _checkConnection());
   }
 
-  Future<void> _checkInitialConnection() async {
-    bool initialStatus = await InternetConnectionChecker().hasConnection;
-    isConnected.value = initialStatus;
-  }
-
-  void _updateConnectionStatus(InternetConnectionStatus status) {
-    if (status == InternetConnectionStatus.disconnected) {
-      isConnected.value = false;
-    } else {
-      isConnected.value = true;
+  Future<void> _checkConnection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _connectivityController.sink.add(true);
+      } else {
+        _connectivityController.sink.add(false);
+      }
+    } on SocketException catch (_) {
+      _connectivityController.sink.add(false);
     }
   }
 
-  @override
-  void onClose() {
-    _subscription.cancel();
-    super.onClose();
+  void dispose() {
+    _timer.cancel();
+    _connectivityController.close();
   }
 }
